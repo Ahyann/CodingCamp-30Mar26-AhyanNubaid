@@ -11,7 +11,7 @@ body {
   background-color: #f5f6fa;
 }
 
-/* 🔥 NAVBAR */
+/* NAVBAR */
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -23,17 +23,15 @@ body {
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
-/* NAV LEFT (judul + menu jadi 1 baris) */
 .nav-left {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 40px; 
 }
 
-/* MENU */
 .nav-menu {
-  display: flex;
-  gap: 10px;
+    display: flex;
+    gap: 20px;
 }
 
 /* NAV LINK */
@@ -51,12 +49,35 @@ body {
   font-weight: bold;
 }
 
-/* 🔥 TOGGLE SWITCH */
+/* TOGGLE SWITCH */
 .switch {
   position: relative;
   display: inline-block;
   width: 50px;
   height: 26px;
+}
+
+/* Container untuk ikon dan switch */
+.theme-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px; 
+}
+
+/* Styling warna ikon */
+.icon-sun {
+  color: #f1c40f; 
+  font-size: 1.1rem;
+}
+
+.icon-moon {
+  color: #f1c40f; 
+  font-size: 1.1rem;
+}
+
+/* Transisi saat ganti tema */
+.theme-wrapper i {
+  transition: opacity 0.3s ease;
 }
 
 .switch input {
@@ -109,6 +130,7 @@ input:checked + .slider::before {
   cursor: pointer;
   font-size: 16px;
 }
+
 
 /* PAGE CONTROL */
 .page {

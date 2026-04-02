@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Expense Tracker</title>
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="Test.css">
 
 </head>
@@ -21,13 +21,19 @@
       <button class="nav-link" data-page="report">Report</button>
     </div>
   </div>
-
+  
   <div class="nav-right">
-    <!-- TOGGLE SWITCH -->
-    <label class="switch">
-      <input type="checkbox" id="theme-toggle">
-      <span class="slider"></span>
-    </label>
+    <!-- THEME TOGGLE CONTAINER -->
+    <div class="theme-wrapper">
+      <i class="fas fa-sun icon-sun"></i> <!-- Ikon Matahari -->
+      
+      <label class="switch">
+        <input type="checkbox" id="theme-toggle">
+        <span class="slider"></span>
+      </label>
+      
+      <i class="fas fa-moon icon-moon"></i> <!-- Ikon Bulan -->
+    </div>
   </div>
 </nav>
 
