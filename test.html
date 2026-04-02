@@ -6,26 +6,30 @@
   <title>Expense Tracker</title>
 
   <link rel="stylesheet" href="Test.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
 
 <body>
 
   <!-- NAVBAR -->
-  <nav class="navbar">
-    <div class="nav-left">
-      <h2>Expense Tracker</h2>
-    </div>
+<nav class="navbar">
+  <div class="nav-left">
+    <h2>Expense Tracker</h2>
 
-    <div class="nav-center">
+    <div class="nav-menu">
       <button class="nav-link active" data-page="home">Home</button>
       <button class="nav-link" data-page="report">Report</button>
     </div>
+  </div>
 
-    <div class="nav-right">
-      <button id="theme-toggle">🌙</button>
-    </div>
-  </nav>
+  <div class="nav-right">
+    <!-- TOGGLE SWITCH -->
+    <label class="switch">
+      <input type="checkbox" id="theme-toggle">
+      <span class="slider"></span>
+    </label>
+  </div>
+</nav>
 
   <!-- MAIN CONTENT -->
   <div class="container">
@@ -78,6 +82,6 @@
 
   </div>
 
-  <script src="js/script.js"></script>
+  <script src="test.js"></script>
 </body>
 </html>
