@@ -1,0 +1,59 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* BODY */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f6fa;
+}
+
+/* 🔥 NAVBAR */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 15px 20px;
+  background-color: #292b29;
+
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+/* LEFT */
+.nav-left h2 {
+  font-size: 18px;
+}
+
+/* CENTER MENU */
+.nav-center {
+  display: flex;
+  gap: 15px;
+}
+
+.nav-link {
+  background: none;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  color: #555;
+}
+
+/* ACTIVE MENU */
+.nav-link.active {
+  color: #007bff;
+  font-weight: bold;
+}
+
+/* RIGHT (DARK MODE BUTTON) */
+.nav-right button {
+  border: none;
+  background: #eee;
+  padding: 8px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+}
