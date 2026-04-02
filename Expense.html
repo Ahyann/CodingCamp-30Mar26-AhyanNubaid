@@ -15,7 +15,7 @@
       <div class="nav-menu">
         <button class="nav-link active" data-page="home">Home</button>
         <button class="nav-link" data-page="report">Report</button>
-        <button class="nav-link" data-page="report">Edit</button>
+        <button class="nav-link" data-page="edit">Edit</button>
       </div>
     </div>
     
@@ -32,8 +32,8 @@
   </nav>
 
   <div class="container">
-    <section id="home" class="page active">
-
+    
+    <section id="home">
       <div class="balance-container">
         <h2>Total Balance</h2>
         <p id="balance">Rp 0</p>
@@ -44,6 +44,7 @@
         <form id="form">
           <input type="text" id="name" placeholder="Item Name" required>
           <input type="number" id="amount" placeholder="Amount" required>
+          <input type="date" id="date" required> 
           <select id="category" required>
             <option value="">Select Category</option>
             <option value="Food">Food</option>
@@ -56,24 +57,31 @@
 
       <div class="list-container">
         <h3>Transaction History</h3>
-        
         <div class="carousel-wrapper">
           <button class="scroll-btn left-btn" id="scrollLeft"><i class="fas fa-chevron-left"></i></button>
-          
           <ul id="list"></ul>
-
           <button class="scroll-btn right-btn" id="scrollRight"><i class="fas fa-chevron-right"></i></button>
         </div>
       </div>
-
     </section>
 
-    <section id="report" class="page">
+    <section id="report">
+      <div class="report-header">
+        <h2>Report & Statistics</h2>
+        <p>Your spending summary</p>
+        
+        <div class="month-filter-container">
+          <input type="month" id="monthFilter">
+        </div>
+        <h3 class="monthly-total">Total Bulan Ini: <span id="monthlyBalance">Rp 0</span></h3>
+      </div>
+
       <div class="chart-container">
         <h3>Spending Chart</h3>
         <canvas id="chart"></canvas>
       </div>
     </section>
+
   </div>
 
   <script src="Expense.js"></script>

@@ -1,13 +1,15 @@
-/* RESET */
+/* RESET & SMOOTH SCROLLING */
 * { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 body { font-family: 'Poppins', sans-serif; background-color: #f4f5f7; }
 
 /* NAVBAR */
-.navbar { display: flex; justify-content: space-between; align-items: center; padding: 20px 25px; background-color: #ffee00; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+.navbar { position: sticky; top: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 20px 25px; background-color: #ffee00; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
 .nav-left { display: flex; align-items: center; gap: 40px; }
 .nav-menu { display: flex; gap: 20px; }
-.nav-link { background: none; border: none; font-size: 14px; cursor: pointer; color: #555; }
-.nav-link.active { color: #000; font-weight: bold; }
+.nav-link { background: none; border: none; font-size: 14px; cursor: pointer; color: #555; transition: 0.2s; }
+.nav-link:hover { color: #000; }
+.nav-link.active { color: #000; font-weight: bold; border-bottom: 2px solid #000; }
 
 /* TOGGLE SWITCH */
 .switch { position: relative; display: inline-block; width: 50px; height: 26px; }
@@ -21,93 +23,88 @@ body { font-family: 'Poppins', sans-serif; background-color: #f4f5f7; }
 input:checked + .slider { background-color: #000; }
 input:checked + .slider::before { transform: translateX(24px); }
 
-/* PAGE CONTROL */
-.page { display: none; }
-.page.active { display: block; }
-
-/* --- LAYOUT HOME (2 KOLOM SEJAJAR) --- */
+/* --- SECTION HOME --- */
 #home {
   display: grid;
-  grid-template-columns: 1fr 1fr; /* Membagi 2 sama besar */
+  grid-template-columns: 1fr 1fr;
   gap: 25px; 
-  max-width: 900px; 
-  margin: 0 auto; 
-  padding: 20px;
-  align-items: stretch; /* Memaksa kotak Kiri dan Kanan sama tingginya! */
+  max-width: 1000px; 
+  margin: 30px auto; 
+  padding: 0 20px;
+  align-items: stretch;
 }
 
 .balance-container { grid-column: 1 / -1; text-align: center; }
 
-/* Desain Kotak Utama */
-.balance-container, .form-container, .list-container {
+/* Desain Kotak Utama & Report */
+.balance-container, .form-container, .list-container, #report {
   background-color: #ffffff; 
-  padding: 25px;
+  padding: 30px;
   border-radius: 16px; 
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); 
   width: 100%;
 }
 
-/* --- MERAPIKAN FORM --- */
+/* --- FORM --- */
 #form { display: flex; flex-direction: column; gap: 15px; margin-top: 15px; }
 #form input, #form select { padding: 12px; border: 1px solid #e0e0e0; border-radius: 8px; font-family: inherit; font-size: 14px; }
 #form button { padding: 12px; background-color: #ffee00; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 15px; transition: 0.2s; }
 #form button:hover { background-color: #e6d600; }
 
-/* --- LIST CONTAINER & CAROUSEL WRAPPER --- */
+/* --- LIST CONTAINER & CAROUSEL --- */
 .list-container { display: flex; flex-direction: column; }
 .carousel-wrapper { 
-  flex-grow: 1; /* Memenuhi sisa ruang tinggi agar pas dengan form */
+  flex-grow: 1; 
   position: relative; 
   display: flex; 
   align-items: center; 
   margin-top: 15px;
+  width: 100%;
 }
 
-/* --- DESAIN SLIDER 4 KOTAK (2 Baris x 2 Kolom) --- */
+.scroll-btn {
+  background-color: #ffee00; border: none; border-radius: 50%; width: 35px; height: 35px;
+  cursor: pointer; display: flex; justify-content: center; align-items: center;
+  position: absolute; z-index: 5; box-shadow: 0 2px 5px rgba(0,0,0,0.15); font-size: 14px;
+}
+.scroll-btn:hover { background-color: #e6d600; }
+.left-btn { left: -15px; } 
+.right-btn { right: -15px; }
+
 #list {
   display: grid;
-  grid-template-rows: repeat(2, 1fr); /* Otomatis bikin 2 baris (atas-bawah) */
-  grid-auto-flow: column; /* Data selanjutnya ngalir ke kolom baru (geser kanan) */
-  grid-auto-columns: calc(50% - 5px); /* Bagi persis jadi 2 kotak per tampilan */
-  gap: 10px; /* Jarak antar kotak */
-  
-  overflow-x: auto; 
-  scroll-behavior: smooth; 
-  padding: 5px 0;
-  width: 100%;
-  height: 100%;
-  list-style: none; 
-  
-  -ms-overflow-style: none;  
-  scrollbar-width: none;  
+  grid-template-rows: repeat(2, 1fr); 
+  grid-auto-flow: column; 
+  grid-auto-columns: calc(50% - 5px); 
+  gap: 10px; 
+  overflow-x: auto; scroll-behavior: smooth; padding: 5px 0; width: 100%; height: 100%; list-style: none; 
+  -ms-overflow-style: none; scrollbar-width: none;  
 }
 #list::-webkit-scrollbar { display: none; }
 
-/* Desain dalam kotak-kotak kecilnya */
 #list li {
-  background-color: #f9f9fb;
-  padding: 12px 15px;
-  border-radius: 12px;
-  border: 1px solid #eee;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 8px;
+  background-color: #f9f9fb; padding: 12px 15px; border-radius: 8px; border: 1px solid #eee;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02); display: flex; flex-direction: column; justify-content: center; gap: 8px;
 }
-
-/* Teks & Ikon dalam Kotak Transaksi */
 .history-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #ddd; padding-bottom: 8px; }
 .history-header .amount { font-weight: bold; color: #333; font-size: 14px; }
 .history-body h4 { font-size: 15px; color: #222; margin-bottom: 2px; }
 .history-body p { font-size: 12px; color: #888; }
 
-/* Tombol Geser Kuning */
-.scroll-btn {
-  background-color: #ffee00; border: none; border-radius: 50%; width: 35px; height: 35px;
-  cursor: pointer; display: flex; justify-content: center; align-items: center;
-  position: absolute; z-index: 2; box-shadow: 0 2px 5px rgba(0,0,0,0.15); font-size: 14px;
+/* --- SECTION REPORT --- */
+#report {
+  max-width: 1000px; 
+  margin: 0 auto 50px auto; 
+  padding: 40px;
+  text-align: center;
 }
-.scroll-btn:hover { background-color: #e6d600; }
-.left-btn { left: -15px; } 
-.right-btn { right: -15px; }
+.report-header { margin-bottom: 30px; }
+.report-header h2 { font-size: 24px; color: #222; }
+.report-header p { font-size: 14px; color: #777; margin-top: 5px; }
+.chart-container { background-color: #f9f9fb; padding: 20px; border-radius: 12px; border: 1px solid #eee; }
+
+/* --- DESAIN MONTHLY SUMMARY BARU --- */
+.month-filter-container { margin-top: 15px; margin-bottom: 10px; }
+#monthFilter { padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-family: inherit; font-size: 14px; cursor: pointer; outline: none; }
+.monthly-total { font-size: 18px; color: #333; margin-bottom: 20px; }
+#monthlyBalance { color: #d32f2f; font-weight: bold; }
