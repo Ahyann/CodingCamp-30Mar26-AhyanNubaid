@@ -1,0 +1,113 @@
+/* RESET */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Poppins', sans-serif; background-color: #f4f5f7; }
+
+/* NAVBAR */
+.navbar { display: flex; justify-content: space-between; align-items: center; padding: 20px 25px; background-color: #ffee00; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+.nav-left { display: flex; align-items: center; gap: 40px; }
+.nav-menu { display: flex; gap: 20px; }
+.nav-link { background: none; border: none; font-size: 14px; cursor: pointer; color: #555; }
+.nav-link.active { color: #000; font-weight: bold; }
+
+/* TOGGLE SWITCH */
+.switch { position: relative; display: inline-block; width: 50px; height: 26px; }
+.theme-wrapper { display: flex; align-items: center; gap: 10px; }
+.icon-sun { color: #f1c40f; font-size: 1.1rem; }
+.icon-moon { color: #f1c40f; font-size: 1.1rem; }
+.theme-wrapper i { transition: opacity 0.3s ease; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider { position: absolute; cursor: pointer; background-color: #ccc; border-radius: 34px; top: 0; left: 0; right: 0; bottom: 0; transition: 0.3s; }
+.slider::before { content: ""; position: absolute; height: 20px; width: 20px; left: 3px; bottom: 3px; background-color: white; border-radius: 50%; transition: 0.3s; }
+input:checked + .slider { background-color: #000; }
+input:checked + .slider::before { transform: translateX(24px); }
+
+/* PAGE CONTROL */
+.page { display: none; }
+.page.active { display: block; }
+
+/* --- LAYOUT HOME (2 KOLOM SEJAJAR) --- */
+#home {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Membagi 2 sama besar */
+  gap: 25px; 
+  max-width: 900px; 
+  margin: 0 auto; 
+  padding: 20px;
+  align-items: stretch; /* Memaksa kotak Kiri dan Kanan sama tingginya! */
+}
+
+.balance-container { grid-column: 1 / -1; text-align: center; }
+
+/* Desain Kotak Utama */
+.balance-container, .form-container, .list-container {
+  background-color: #ffffff; 
+  padding: 25px;
+  border-radius: 16px; 
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); 
+  width: 100%;
+}
+
+/* --- MERAPIKAN FORM --- */
+#form { display: flex; flex-direction: column; gap: 15px; margin-top: 15px; }
+#form input, #form select { padding: 12px; border: 1px solid #e0e0e0; border-radius: 8px; font-family: inherit; font-size: 14px; }
+#form button { padding: 12px; background-color: #ffee00; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 15px; transition: 0.2s; }
+#form button:hover { background-color: #e6d600; }
+
+/* --- LIST CONTAINER & CAROUSEL WRAPPER --- */
+.list-container { display: flex; flex-direction: column; }
+.carousel-wrapper { 
+  flex-grow: 1; /* Memenuhi sisa ruang tinggi agar pas dengan form */
+  position: relative; 
+  display: flex; 
+  align-items: center; 
+  margin-top: 15px;
+}
+
+/* --- DESAIN SLIDER 4 KOTAK (2 Baris x 2 Kolom) --- */
+#list {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr); /* Otomatis bikin 2 baris (atas-bawah) */
+  grid-auto-flow: column; /* Data selanjutnya ngalir ke kolom baru (geser kanan) */
+  grid-auto-columns: calc(50% - 5px); /* Bagi persis jadi 2 kotak per tampilan */
+  gap: 10px; /* Jarak antar kotak */
+  
+  overflow-x: auto; 
+  scroll-behavior: smooth; 
+  padding: 5px 0;
+  width: 100%;
+  height: 100%;
+  list-style: none; 
+  
+  -ms-overflow-style: none;  
+  scrollbar-width: none;  
+}
+#list::-webkit-scrollbar { display: none; }
+
+/* Desain dalam kotak-kotak kecilnya */
+#list li {
+  background-color: #f9f9fb;
+  padding: 12px 15px;
+  border-radius: 12px;
+  border: 1px solid #eee;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* Teks & Ikon dalam Kotak Transaksi */
+.history-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #ddd; padding-bottom: 8px; }
+.history-header .amount { font-weight: bold; color: #333; font-size: 14px; }
+.history-body h4 { font-size: 15px; color: #222; margin-bottom: 2px; }
+.history-body p { font-size: 12px; color: #888; }
+
+/* Tombol Geser Kuning */
+.scroll-btn {
+  background-color: #ffee00; border: none; border-radius: 50%; width: 35px; height: 35px;
+  cursor: pointer; display: flex; justify-content: center; align-items: center;
+  position: absolute; z-index: 2; box-shadow: 0 2px 5px rgba(0,0,0,0.15); font-size: 14px;
+}
+.scroll-btn:hover { background-color: #e6d600; }
+.left-btn { left: -15px; } 
+.right-btn { right: -15px; }
