@@ -3,56 +3,78 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Expense & Budget Visualizer</title>
+  <title>Expense Tracker</title>
 
   <link rel="stylesheet" href="css/style.css">
-
-  <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
 
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-left">
+      <h2>Expense Tracker</h2>
+    </div>
+
+    <div class="nav-center">
+      <button class="nav-link active" data-page="home">Home</button>
+      <button class="nav-link" data-page="report">Report</button>
+    </div>
+
+    <div class="nav-right">
+      <button id="theme-toggle">🌙</button>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTENT -->
   <div class="container">
 
-    <!-- HEADER -->
-    <h1>Expense Tracker</h1>
+    <!-- HOME PAGE -->
+    <section id="home" class="page active">
 
-    <!-- TOTAL BALANCE -->
-    <div class="balance-container">
-      <h2>Total Balance</h2>
-      <p id="balance">Rp 0</p>
-    </div>
+      <!-- BALANCE -->
+      <div class="balance-container">
+        <h2>Total Balance</h2>
+        <p id="balance">Rp 0</p>
+      </div>
 
-    <!-- FORM INPUT -->
-    <div class="form-container">
-      <h3>Add Transaction</h3>
+      <!-- FORM -->
+      <div class="form-container">
+        <h3>Add Transaction</h3>
 
-      <form id="form">
-        <input type="text" id="name" placeholder="Item Name" required>
-        <input type="number" id="amount" placeholder="Amount" required>
+        <form id="form">
+          <input type="text" id="name" placeholder="Item Name" required>
+          <input type="number" id="amount" placeholder="Amount" required>
 
-        <select id="category" required>
-          <option value="">Select Category</option>
-          <option value="Food">Food</option>
-          <option value="Transport">Transport</option>
-          <option value="Fun">Fun</option>
-        </select>
+          <select id="category" required>
+            <option value="">Select Category</option>
+            <option value="Food">Food</option>
+            <option value="Transport">Transport</option>
+            <option value="Fun">Fun</option>
+          </select>
 
-        <button type="submit">Add</button>
-      </form>
-    </div>
+          <button type="submit">Add</button>
+        </form>
+      </div>
 
-    <!-- TRANSACTION LIST -->
-    <div class="list-container">
-      <h3>Transaction History</h3>
-      <ul id="list"></ul>
-    </div>
+      <!-- LIST -->
+      <div class="list-container">
+        <h3>Transaction History</h3>
+        <ul id="list"></ul>
+      </div>
 
-    <!-- CHART -->
-    <div class="chart-container">
-      <h3>Spending Chart</h3>
-      <canvas id="chart"></canvas>
-    </div>
+    </section>
+
+    <!-- REPORT PAGE -->
+    <section id="report" class="page">
+
+      <div class="chart-container">
+        <h3>Spending Chart</h3>
+        <canvas id="chart"></canvas>
+      </div>
+
+    </section>
 
   </div>
 
