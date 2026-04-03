@@ -265,3 +265,24 @@ window.addEventListener('scroll', () => {
     }
   });
 });
+
+// === 7. FITUR DARK MODE ===
+const themeToggle = document.getElementById('theme-toggle');
+const body = document.body;
+
+// Cek apakah sebelumnya user pakai Dark Mode
+if (localStorage.getItem('theme') === 'dark') {
+  body.classList.add('dark-mode');
+  themeToggle.checked = true;
+}
+
+// Event kalau switch dipencet
+themeToggle.addEventListener('change', () => {
+  if (themeToggle.checked) {
+    body.classList.add('dark-mode');
+    localStorage.setItem('theme', 'dark'); // Simpan pilihan di browser
+  } else {
+    body.classList.remove('dark-mode');
+    localStorage.setItem('theme', 'light'); // Kembalikan ke light mode
+  }
+});
