@@ -3,19 +3,59 @@
 html { scroll-behavior: smooth; }
 body { font-family: 'Poppins', sans-serif; background-color: #f4f5f7; }
 
-/* NAVBAR */
-.navbar { position: sticky; top: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 20px 25px; background-color: #ffee00; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-.nav-left { display: flex; align-items: center; gap: 40px; }
-.nav-menu { display: flex; gap: 20px; }
-.nav-link { background: none; border: none; font-size: 14px; cursor: pointer; color: #555; transition: 0.2s; }
+/* --- NAVBAR UTAMA --- */
+.navbar {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; 
+    flex-direction: row; /* Pastikan sejajar menyamping */
+    justify-content: space-between; /* Pisahkan kiri dan kanan ke ujung */
+    align-items: center; 
+    padding: 15px 25px; 
+    background-color: #ffee00;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* BAGIAN KIRI (LOGO & JUDUL) */
+.nav-left h2 {
+    display: flex; 
+    flex-direction: row; /* Logo dan teks sejajar menyamping */
+    align-items: center; 
+    font-size: 20px; 
+    color: #000; 
+    margin: 0; 
+}
+
+.nav-logo {
+    height: 40px; 
+    width: auto;   
+    margin-right: 15px; 
+}
+
+/* BAGIAN KANAN (MENU & TOGGLE) */
+.nav-right {
+    display: flex; 
+    flex-direction: row; /* Menu dan tombol sejajar menyamping */
+    align-items: center; 
+    gap: 30px; 
+}
+
+.nav-menu {
+    display: flex; 
+    flex-direction: row; /* Tombol Home dan Report menyamping */
+    gap: 20px; 
+}
+
+.nav-link {
+    background: none; border: none; font-size: 15px; cursor: pointer; color: #555; transition: 0.2s;
+    padding: 5px 0; position: relative; font-weight: 500;
+}
 .nav-link:hover { color: #000; }
 .nav-link.active { color: #000; font-weight: bold; border-bottom: 2px solid #000; }
 
 /* TOGGLE SWITCH */
-.switch { position: relative; display: inline-block; width: 50px; height: 26px; }
 .theme-wrapper { display: flex; align-items: center; gap: 10px; }
-.icon-sun { color: #f1c40f; font-size: 1.1rem; }
-.icon-moon { color: #f1c40f; font-size: 1.1rem; }
+.switch { position: relative; display: inline-block; width: 50px; height: 26px; }
+.icon-sun, .icon-moon { color: #f1c40f; font-size: 1.1rem; }
 .theme-wrapper i { transition: opacity 0.3s ease; }
 .switch input { opacity: 0; width: 0; height: 0; }
 .slider { position: absolute; cursor: pointer; background-color: #ccc; border-radius: 34px; top: 0; left: 0; right: 0; bottom: 0; transition: 0.3s; }
@@ -26,11 +66,11 @@ input:checked + .slider::before { transform: translateX(24px); }
 /* --- SECTION HOME --- */
 #home {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr; /* Kotak Add & History menyamping */
   gap: 25px; 
   max-width: 1000px; 
   margin: 30px auto; 
-  padding: 0 20px;
+  padding: 0;
   align-items: stretch;
 }
 
@@ -55,67 +95,41 @@ input:checked + .slider::before { transform: translateX(24px); }
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  
-  /* Bikin panah custom pakai SVG */
   background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
   background-repeat: no-repeat;
-  
-  /* ATUR POSISI PANAH DI SINI */
-  background-position: right 15px center; /* <--- Ubah 15px ini kalau masih kurang ke kiri */
+  background-position: right 15px center; 
   background-size: 16px;
-  
-  /* Kasih ruang biar tulisan nggak nabrak panah */
   padding-right: 40px; 
   cursor: pointer;
 }
 
+/* --- STYLE TOMBOL DELETE --- */
+.delete-btn { background: none; border: none; color: #ff4757; cursor: pointer; font-size: 15px; padding: 5px; transition: 0.2s; }
+.delete-btn:hover { color: #ff6b81; transform: scale(1.1); }
+
+/* Kalender di History */
+.history-filter { padding: 6px 10px; border: 1px solid #ddd; border-radius: 6px; font-family: inherit; font-size: 13px; cursor: pointer; outline: none; }
+
 /* --- LIST CONTAINER & CAROUSEL --- */
 .list-container { display: flex; flex-direction: column; }
-.carousel-wrapper { 
-  flex-grow: 1; 
-  position: relative; 
-  display: flex; 
-  align-items: center; 
-  margin-top: 15px;
-  width: 100%;
-}
+.carousel-wrapper { flex-grow: 1; position: relative; display: flex; align-items: center; margin-top: 15px; width: 100%; }
 
-.scroll-btn {
-  background-color: #ffee00; border: none; border-radius: 50%; width: 35px; height: 35px;
-  cursor: pointer; display: flex; justify-content: center; align-items: center;
-  position: absolute; z-index: 5; box-shadow: 0 2px 5px rgba(0,0,0,0.15); font-size: 14px;
-}
+.scroll-btn { background-color: #ffee00; border: none; border-radius: 50%; width: 35px; height: 35px; cursor: pointer; display: flex; justify-content: center; align-items: center; position: absolute; z-index: 5; box-shadow: 0 2px 5px rgba(0,0,0,0.15); font-size: 14px; }
 .scroll-btn:hover { background-color: #e6d600; }
 .left-btn { left: -15px; } 
 .right-btn { right: -15px; }
 
-#list {
-  display: grid;
-  grid-template-rows: repeat(2, 1fr); 
-  grid-auto-flow: column; 
-  grid-auto-columns: calc(50% - 5px); 
-  gap: 10px; 
-  overflow-x: auto; scroll-behavior: smooth; padding: 5px 0; width: 100%; height: 100%; list-style: none; 
-  -ms-overflow-style: none; scrollbar-width: none;  
-}
+#list { display: grid; grid-template-rows: repeat(2, 1fr); grid-auto-flow: column; grid-auto-columns: calc(50% - 5px); gap: 10px; overflow-x: auto; scroll-behavior: smooth; padding: 5px 0; width: 100%; height: 100%; list-style: none; -ms-overflow-style: none; scrollbar-width: none;  }
 #list::-webkit-scrollbar { display: none; }
 
-#list li {
-  background-color: #f9f9fb; padding: 12px 15px; border-radius: 8px; border: 1px solid #eee;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.02); display: flex; flex-direction: column; justify-content: center; gap: 8px;
-}
+#list li { background-color: #f9f9fb; padding: 12px 15px; border-radius: 8px; border: 1px solid #eee; box-shadow: 0 2px 4px rgba(0,0,0,0.02); display: flex; flex-direction: column; justify-content: center; gap: 8px; }
 .history-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #ddd; padding-bottom: 8px; }
 .history-header .amount { font-weight: bold; color: #333; font-size: 14px; }
 .history-body h4 { font-size: 15px; color: #222; margin-bottom: 2px; }
 .history-body p { font-size: 12px; color: #888; }
 
 /* --- SECTION REPORT --- */
-#report {
-  max-width: 1000px; 
-  margin: 0 auto 50px auto; 
-  padding: 40px;
-  text-align: center;
-}
+#report { max-width: 1000px; margin: 0 auto 50px auto; padding: 30px; text-align: center; }
 .report-header { margin-bottom: 30px; }
 .report-header h2 { font-size: 24px; color: #222; }
 .report-header p { font-size: 14px; color: #777; margin-top: 5px; }
@@ -146,66 +160,33 @@ input:checked + .slider::before { transform: translateX(24px); }
 .progress-bar-fill { height: 100%; border-radius: 3px; transition: width 0.5s ease; }
 
 /* === DARK MODE STYLES === */
-body.dark-mode { 
-  background-color: #121212; 
-  color: #ffffff; 
-  color-scheme: dark; /* <--- INI KUNCINYA! Biar kalender & scrollbar otomatis gelap */
-}
+body.dark-mode { background-color: #121212; color: #ffffff; color-scheme: dark; }
+body.dark-mode option, body.dark-mode optgroup { background-color: #2c2c2c; color: #ffffff; }
+body.dark-mode #form button, body.dark-mode .scroll-btn { color: #000000 !important; }
+body.dark-mode input[type="date"], body.dark-mode input[type="month"] { background-color: #2c2c2c; color: #ffffff; border: 1px solid #444; }
 
-/* Biar list pilihan dropdown (Highest Amount, Food, dll) nggak putih */
-body.dark-mode option, 
-body.dark-mode optgroup {
-  background-color: #2c2c2c;
-  color: #ffffff;
-}
-
-/* Pastikan input date & month juga ikut gelap */
-body.dark-mode input[type="date"],
-body.dark-mode input[type="month"] {
-  background-color: #2c2c2c; 
-  color: #ffffff; 
-  border: 1px solid #444;
-}
-
-body.dark-mode { background-color: #121212; color: #ffffff; }
 body.dark-mode .navbar { background-color: #1e1e1e; box-shadow: 0 2px 8px rgba(0,0,0,0.5); }
-body.dark-mode .navbar h2 { color: #ffee00; }
+body.dark-mode .nav-left h2 { color: #ffee00; }
 body.dark-mode .nav-link { color: #bbb; }
 body.dark-mode .nav-link:hover { color: #ffee00; }
 body.dark-mode .nav-link.active { color: #ffee00; border-bottom: 2px solid #ffee00; }
 
-body.dark-mode .balance-container, 
-body.dark-mode .form-container, 
-body.dark-mode .list-container, 
-body.dark-mode #report {
-  background-color: #1e1e1e; 
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); 
-  border: 1px solid #333;
-}
-
+body.dark-mode .balance-container, body.dark-mode .form-container, body.dark-mode .list-container, body.dark-mode #report { background-color: #1e1e1e; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); border: 1px solid #333; }
 body.dark-mode h2, body.dark-mode h3, body.dark-mode p { color: #e0e0e0; }
 body.dark-mode #balance, body.dark-mode #monthlyBalance { color: #ffee00; }
 body.dark-mode label, body.dark-mode .monthly-total { color: #ccc !important; }
 
-/* Form & Input Gelap */
-body.dark-mode input, body.dark-mode select {
-  background-color: #2c2c2c; color: #ffffff; border: 1px solid #444;
-}
-/* Ubah panah select biar kelihatan di dark mode (panah putih) */
-body.dark-mode #form select {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-}
+body.dark-mode input, body.dark-mode select { background-color: #2c2c2c; color: #ffffff; border: 1px solid #444; }
+body.dark-mode #form select { background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"); }
 
-/* History List Gelap */
 body.dark-mode #list li { background-color: #2c2c2c; border: 1px solid #444; }
 body.dark-mode .history-header .amount { color: #e0e0e0; }
 body.dark-mode .history-body h4 { color: #ffffff; }
 body.dark-mode .history-body p { color: #aaa; }
 
-/* Chart & Category Item Gelap */
 body.dark-mode .chart-container { background-color: #2c2c2c; border: 1px solid #444; }
 body.dark-mode .cat-item { background-color: #2c2c2c; border: 1px solid #444; }
 body.dark-mode .cat-name { color: #ffffff; }
 body.dark-mode .cat-amount { color: #e0e0e0; }
 body.dark-mode .cat-icon-wrapper { background-color: #1e1e1e; }
-
+body.dark-mode #sortOrder, body.dark-mode .history-filter { background-color: #2c2c2c !important; color: #ffffff !important; border: 1px solid #555 !important; }

@@ -32,6 +32,7 @@ const balanceDisplay = document.getElementById('balance');
 const monthFilter = document.getElementById('monthFilter');
 const monthlyBalanceDisplay = document.getElementById('monthlyBalance');
 const sortOrderSelect = document.getElementById('sortOrder');
+const historyMonthFilter = document.getElementById('historyMonthFilter');
 
 let transactions = []; 
 let myChart = null; // Variabel penyimpan grafik
@@ -39,7 +40,9 @@ let myChart = null; // Variabel penyimpan grafik
 // Setup Kalender Hari Ini
 const today = new Date();
 dateInput.value = today.toISOString().split('T')[0]; 
-monthFilter.value = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}`;
+const currentMonth = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}`;
+monthFilter.value = currentMonth;
+if(historyMonthFilter) historyMonthFilter.value = currentMonth;
 
 // Master Data Kategori (Warna & Icon)
 const catConfig = {
@@ -100,7 +103,7 @@ function updateUI() {
     const filteredTrx = monthlyTrx.filter(trx => trx.category === filterValue);
     const catTotal = filteredTrx.reduce((acc, curr) => acc + curr.amount, 0);
     
-    // Gabungkan pengeluaran yang namanya sama (misal beli "Burger" 2 kali)
+    // Gabungkan pengeluaran yang namanya sama
     let itemTotals = {};
     let itemCounts = {};
     
@@ -173,7 +176,7 @@ function renderCategoryList(data) {
   container.innerHTML = ''; 
 
   if (data.length === 0) {
-    container.innerHTML = '<p style="text-align:center; color:#888; margin-top:20px;">Belum ada transaksi di bulan ini.</p>';
+    container.innerHTML = '<p style="text-align:center; color:#888; margin-top:20px;">No transactions this month.</p>';
     return;
   }
 
@@ -201,7 +204,55 @@ function renderCategoryList(data) {
   });
 }
 
-// === 5. EVENT LISTENERS ===
+// === 5. FUNGSI HISTORY & HAPUS TRANSAKSI ===
+function renderHistory() {
+  if(!listElement) return;
+  listElement.innerHTML = ''; // Kosongkan list dulu
+  
+  // Ambil bulan dari kalender history (kalau ada)
+  const selectedMonth = historyMonthFilter ? historyMonthFilter.value : '';
+  
+  // Filter transaksi sesuai bulan
+  const filteredTrx = selectedMonth 
+    ? transactions.filter(trx => trx.date.substring(0, 7) === selectedMonth)
+    : transactions;
+
+  if (filteredTrx.length === 0) {
+    listElement.innerHTML = '<p style="text-align:center; color:#888; width: 100%; grid-column: span 2; margin-top: 15px;">No transactions this month.</p>';
+    return;
+  }
+
+  // Tampilkan data yang sudah difilter
+  filteredTrx.forEach(transaction => {
+    const li = document.createElement('li');
+    li.innerHTML = `
+      <div class="history-header">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <i class="${transaction.icon}" style="color: ${transaction.color}; font-size: 16px;"></i>
+          <span class="amount">Rp ${transaction.amount.toLocaleString('id-ID')}</span>
+        </div>
+        <button class="delete-btn" onclick="deleteTransaction(${transaction.id})">
+          <i class="fas fa-trash"></i>
+        </button>
+      </div>
+      <div class="history-body">
+        <h4>${transaction.name}</h4>
+        <p>${transaction.category} • ${transaction.date}</p>
+      </div>
+    `;
+    listElement.appendChild(li);
+  });
+}
+
+function deleteTransaction(id) {
+  if (confirm("Apakah kamu yakin ingin menghapus transaksi ini?")) {
+    transactions = transactions.filter(trx => trx.id !== id);
+    renderHistory();
+    updateUI();
+  }
+}
+
+// === 6. EVENT LISTENERS ===
 form.addEventListener('submit', function(event) {
   event.preventDefault(); 
 
@@ -217,21 +268,9 @@ form.addEventListener('submit', function(event) {
   
   transactions.push(transaction);
 
-  // Tambah ke History Kanan
-  const li = document.createElement('li');
-  li.innerHTML = `
-    <div class="history-header">
-      <i class="${transaction.icon}" style="color: ${transaction.color}; font-size: 18px;"></i>
-      <span class="amount">Rp ${transaction.amount.toLocaleString('id-ID')}</span>
-    </div>
-    <div class="history-body">
-      <h4>${transaction.name}</h4>
-      <p>${transaction.category} • ${transaction.date}</p>
-    </div>
-  `;
-  listElement.appendChild(li);
-
+  renderHistory();
   updateUI();
+  
   form.reset();
   dateInput.value = today.toISOString().split('T')[0]; 
   listElement.scrollTo({ left: listElement.scrollWidth, behavior: 'smooth' });
@@ -239,11 +278,15 @@ form.addEventListener('submit', function(event) {
 
 monthFilter.addEventListener('change', updateUI);
 sortOrderSelect.addEventListener('change', updateUI);
+if(historyMonthFilter) {
+  historyMonthFilter.addEventListener('change', renderHistory);
+}
 
-// Panggil update UI pertama kali buat bikin chart kosong
+// Panggil update UI pertama kali
 updateUI();
+renderHistory();
 
-// === 6. SCROLLSPY (UPDATE NAVBAR OTOMATIS SAAT DI-SCROLL) ===
+// === 7. SCROLLSPY (UPDATE NAVBAR OTOMATIS SAAT DI-SCROLL) ===
 window.addEventListener('scroll', () => {
   let currentSection = 'home'; // Default selalu home
   const sections = document.querySelectorAll('section');
@@ -266,7 +309,7 @@ window.addEventListener('scroll', () => {
   });
 });
 
-// === 7. FITUR DARK MODE ===
+// === 8. FITUR DARK MODE ===
 const themeToggle = document.getElementById('theme-toggle');
 const body = document.body;
 

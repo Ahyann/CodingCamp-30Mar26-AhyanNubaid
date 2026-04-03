@@ -4,31 +4,37 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Expense Tracker</title>
+  
+  <link rel="icon" href="LOGO.png" type="image/png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link rel="stylesheet" href="Expense.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
   <nav class="navbar">
-    <div class="nav-left">
-      <h2>Ahyan's Expense Tracker</h2>
-      <div class="nav-menu">
-        <button class="nav-link active" data-page="home">Home</button>
-        <button class="nav-link" data-page="report">Report</button>
+      <div class="nav-left">
+          <h2>
+              <img src="LOGO.png" alt="Logo" class="nav-logo">
+              Ahyan's Expense Tracker
+          </h2>
       </div>
-    </div>
-    
-    <div class="nav-right">
-      <div class="theme-wrapper">
-        <i class="fas fa-sun icon-sun"></i>
-        <label class="switch">
-          <input type="checkbox" id="theme-toggle">
-          <span class="slider"></span>
-        </label>
-        <i class="fas fa-moon icon-moon"></i>
+      
+      <div class="nav-right">
+          <div class="nav-menu">
+              <button class="nav-link active" data-page="home">Home</button>
+              <button class="nav-link" data-page="report">Report</button>
+          </div>
+          
+          <div class="theme-wrapper">
+            <i class="fas fa-sun icon-sun"></i>
+            <label class="switch">
+              <input type="checkbox" id="theme-toggle">
+              <span class="slider"></span>
+            </label>
+            <i class="fas fa-moon icon-moon"></i>
+          </div>
       </div>
-    </div>
   </nav>
 
   <div class="container">
@@ -56,7 +62,11 @@
       </div>
 
       <div class="list-container">
-        <h3>Transaction History</h3>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <h3>Transaction History</h3>
+          <input type="month" id="historyMonthFilter" class="history-filter">
+        </div>
+        
         <div class="carousel-wrapper">
           <button class="scroll-btn left-btn" id="scrollLeft"><i class="fas fa-chevron-left"></i></button>
           <ul id="list"></ul>
@@ -80,11 +90,11 @@
         <div class="report-controls">
           <label for="sortOrder" style="font-size: 14px; color:#555;">Filter:</label>
           <select id="sortOrder">
-            <optgroup label="Semua Kategori">
+            <optgroup label="All Categories">
               <option value="all-desc">Highest Amount</option>
               <option value="all-asc">Lowest Amount</option>
             </optgroup>
-            <optgroup label="Filter Kategori">
+            <optgroup label="Filter by Category">
               <option value="Food">Food</option>
               <option value="Transport">Transport</option>
               <option value="Fun">Fun</option>
