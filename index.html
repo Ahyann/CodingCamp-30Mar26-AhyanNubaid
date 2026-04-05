@@ -113,6 +113,26 @@
 
   </div>
 
+  <div id="edit-modal" class="modal-hidden">
+    <div class="modal-content">
+      <h3>Edit Transaction</h3>
+      <div id="edit-form">
+          <input type="text" id="edit-name" placeholder="Item Name">
+          <input type="number" id="edit-amount" placeholder="Amount">
+          <input type="date" id="edit-date">
+          <select id="edit-category">
+            <option value="Food">Food</option>
+            <option value="Transport">Transport</option>
+            <option value="Fun">Fun</option>
+          </select>
+      </div>
+      <div class="modal-buttons">
+        <button onclick="saveEdit()" class="btn-save">Save</button>
+        <button onclick="closeEdit()" class="btn-cancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+
   <script src="js/Expense.js"></script>
 </body>
 </html>

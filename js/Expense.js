@@ -225,31 +225,35 @@ function renderHistory() {
   // Tampilkan data yang sudah difilter
   filteredTrx.forEach(transaction => {
     const li = document.createElement('li');
+    
+    // --- BARIS PENTING BIAR TOMBOL BISA DI POJOK ---
+    li.style.position = 'relative'; 
+    
     li.innerHTML = `
       <div class="history-header">
         <div style="display: flex; align-items: center; gap: 8px;">
           <i class="${transaction.icon}" style="color: ${transaction.color}; font-size: 16px;"></i>
           <span class="amount">Rp ${transaction.amount.toLocaleString('id-ID')}</span>
         </div>
-        <button class="delete-btn" onclick="deleteTransaction(${transaction.id})">
-          <i class="fas fa-trash"></i>
-        </button>
+        
+        <div style="display: flex; gap: 5px;">
+          <button class="delete-btn" onclick="deleteTransaction(${transaction.id})">
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
+        
       </div>
       <div class="history-body">
         <h4>${transaction.name}</h4>
         <p>${transaction.category} • ${transaction.date}</p>
       </div>
+
+      <button class="edit-btn" onclick="openEdit(${transaction.id})">
+        <i class="fas fa-edit"></i>
+      </button>
     `;
     listElement.appendChild(li);
   });
-}
-
-function deleteTransaction(id) {
-  if (confirm("Apakah kamu yakin ingin menghapus transaksi ini?")) {
-    transactions = transactions.filter(trx => trx.id !== id);
-    renderHistory();
-    updateUI();
-  }
 }
 
 // === 6. EVENT LISTENERS ===
@@ -329,3 +333,66 @@ themeToggle.addEventListener('change', () => {
     localStorage.setItem('theme', 'light'); // Kembalikan ke light mode
   }
 });
+
+// === 9. FUNGSI EDIT & HAPUS TRANSAKSI ===
+
+// Fungsi Hapus
+function deleteTransaction(id) {
+  if (confirm("Apakah kamu yakin ingin menghapus transaksi ini?")) {
+    transactions = transactions.filter(trx => trx.id !== id);
+    renderHistory();
+    updateUI();
+  }
+}
+
+// Logika Edit
+let currentEditId = null;
+
+function openEdit(id) {
+  const transaction = transactions.find(t => t.id === id);
+  if (transaction) {
+    currentEditId = id;
+    // Isi data lama ke form pop-up
+    document.getElementById('edit-name').value = transaction.name;
+    document.getElementById('edit-amount').value = transaction.amount;
+    document.getElementById('edit-date').value = transaction.date;
+    document.getElementById('edit-category').value = transaction.category;
+    
+    // Munculkan Modal
+    document.getElementById('edit-modal').classList.remove('modal-hidden');
+    document.getElementById('edit-modal').classList.add('modal-active');
+  }
+}
+
+function closeEdit() {
+  currentEditId = null;
+  document.getElementById('edit-modal').classList.remove('modal-active');
+  document.getElementById('edit-modal').classList.add('modal-hidden');
+}
+
+function saveEdit() {
+  if (currentEditId === null) return;
+
+  const newName = document.getElementById('edit-name').value;
+  const newAmount = Number(document.getElementById('edit-amount').value);
+  const newDate = document.getElementById('edit-date').value;
+  const newCategory = document.getElementById('edit-category').value;
+
+  const index = transactions.findIndex(t => t.id === currentEditId);
+  
+  if (index !== -1) {
+    // Timpa data lama dengan data baru
+    transactions[index].name = newName;
+    transactions[index].amount = newAmount;
+    transactions[index].date = newDate;
+    transactions[index].category = newCategory;
+    
+    // Perbarui juga icon dan warna kalau kategorinya diubah
+    transactions[index].icon = catConfig[newCategory].icon;
+    transactions[index].color = catConfig[newCategory].color;
+
+    renderHistory(); // Refresh daftar riwayat
+    updateUI();      // Refresh saldo & grafik
+    closeEdit();     // Tutup Modal
+  }
+}
